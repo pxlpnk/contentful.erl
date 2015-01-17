@@ -13,3 +13,7 @@ content_types(SpaceID, ApiKey) ->
 content_type(SpaceID, ApiKey, ContentTypes) ->
     {Status, JSON} = cf_http_helper:get_content_type(SpaceID, ApiKey, ContentTypes),
     {Status, cf_json_helper:parse(JSON)}.
+
+sync(SpaceID, ApiKey, Options) ->
+    {Status, JSON} = cf_http_helper:get_sync(SpaceID, ApiKey, Options),
+    {Status, cf_json_helper:parse(JSON)}.

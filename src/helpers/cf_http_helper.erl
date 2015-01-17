@@ -26,6 +26,9 @@ get(Url, Headers, ApiKey) ->
     {ok, Body} = hackney:body(ClientRef),
     {status_code_to_tuple_state(StatusCode), Body}.
 
+get_sync(SpaceID, ApiKey, Options) ->
+    get(sync_url(SpaceID, Options), [], ApiKey).
+
 get_space(SpaceID, ApiKey) ->
     get(space_url(SpaceID), [], ApiKey).
 
@@ -34,6 +37,12 @@ get_content_types(SpaceID, ApiKey) ->
 
 get_content_type(SpaceID, ApiKey, ContentTypes) ->
     get(content_type_url(SpaceID, ContentTypes), [], ApiKey).
+
+sync_url(SpaceID, Options) ->
+    space_url(SpaceID) ++ "/sync?" ++ sync_options(Options).
+
+sync_options(Options) ->
+    string:join([K ++ "=" ++ V || {K, V} <- Options], "&").
 
 space_url(SpaceID) ->
     cda_url() ++ "/spaces/" ++ SpaceID.

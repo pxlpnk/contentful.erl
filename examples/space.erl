@@ -21,3 +21,7 @@ get_content_types() ->
 
 sp_get_contet_types() ->
     contentful:content_type("cfexampleapi", "b4c0n73n7fu1", ["cat"]).
+
+sync_initial_true_cat() ->
+    Options = [{"initial", "true"}, {"type","Entry"}],
+    contentful:sync("cfexampleapi", "b4c0n73n7fu1", Options).

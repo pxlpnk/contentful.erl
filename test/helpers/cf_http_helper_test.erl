@@ -47,3 +47,10 @@ parses_auth_headers_test() ->
     ?assertEqual(
        cf_http_helper:parse_auth_headers([{"Such","Header"}], "ApiKey"),
        [{"Authorization", "Bearer ApiKey"}, {"Such", "Header"}]).
+
+
+sync_options_test() ->
+    Options = [{"initial", "true"}, {"type","Entry"}],
+    ?assertEqual(
+       cf_http_helper:sync_options(Options),
+       "initial=true&type=Entry").
