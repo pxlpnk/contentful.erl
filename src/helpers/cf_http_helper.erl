@@ -41,9 +41,6 @@ get_content_type(SpaceID, ApiKey, ContentTypes) ->
 sync_url(SpaceID, Options) ->
     space_url(SpaceID) ++ "/sync?" ++ sync_options(Options).
 
-sync_options(Options) ->
-    string:join([K ++ "=" ++ V || {K, V} <- Options], "&").
-
 space_url(SpaceID) ->
     cda_url() ++ "/spaces/" ++ SpaceID.
 
@@ -52,10 +49,17 @@ content_types_url(SpaceID) ->
 
 content_type_url(SpaceID, ContentTypes) ->
     ContentTypesList = string:join(ContentTypes, ","),
-    space_url(SpaceID) ++ "/entries?content_type=" ++ ContentTypesList.
+    space_url(SpaceID) ++ "/entries?" ++ params("content_type", ContentTypesList).
 
-delivery_api_url() ->
-    "https://cdn.contentful.com".
+delivery_api_url() -> "https://cdn.contentful.com".
 
-cda_url() ->
-    delivery_api_url().
+cda_url() -> delivery_api_url().
+
+params(K,V) -> K ++ "=" ++ V.
+
+options_to_param_list(Options) ->
+    lists:foldr(fun({K, V}, Params) -> [params(K, V)|Params] end, [], Options).
+
+sync_options(Options) ->
+    ParamList = options_to_param_list(Options),
+    string:join(ParamList, "&").
