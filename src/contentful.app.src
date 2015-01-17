@@ -1,0 +1,13 @@
+{application, contentful, [
+  {description, "Wrapper for the Contentful content delivery api"},
+  {vsn, "1"},
+  {modules, [
+    contentful
+  ]},
+  {registered, []},
+  {applications, [
+    kernel,
+    stdlib
+  ]},
+  {env, []}
+ ]}.
