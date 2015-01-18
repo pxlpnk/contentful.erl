@@ -27,39 +27,13 @@ get(Url, Headers, ApiKey) ->
     {status_code_to_tuple_state(StatusCode), Body}.
 
 get_sync(SpaceID, ApiKey, Options) ->
-    get(sync_url(SpaceID, Options), [], ApiKey).
+    get(cf_url_helper:sync_url(SpaceID, Options), [], ApiKey).
 
 get_space(SpaceID, ApiKey) ->
-    get(space_url(SpaceID), [], ApiKey).
+    get(cf_url_helper:space_url(SpaceID), [], ApiKey).
 
 get_content_types(SpaceID, ApiKey) ->
-    get(content_types_url(SpaceID), [], ApiKey).
+    get(cf_url_helper:content_types_url(SpaceID), [], ApiKey).
 
 get_content_type(SpaceID, ApiKey, ContentTypes) ->
-    get(content_type_url(SpaceID, ContentTypes), [], ApiKey).
-
-sync_url(SpaceID, Options) ->
-    space_url(SpaceID) ++ "/sync?" ++ sync_options(Options).
-
-space_url(SpaceID) ->
-    cda_url() ++ "/spaces/" ++ SpaceID.
-
-content_types_url(SpaceID) ->
-    space_url(SpaceID) ++ "/entries?content_types".
-
-content_type_url(SpaceID, ContentTypes) ->
-    ContentTypesList = string:join(ContentTypes, ","),
-    space_url(SpaceID) ++ "/entries?" ++ params("content_type", ContentTypesList).
-
-delivery_api_url() -> "https://cdn.contentful.com".
-
-cda_url() -> delivery_api_url().
-
-params(K,V) -> K ++ "=" ++ V.
-
-options_to_param_list(Options) ->
-    lists:foldr(fun({K, V}, Params) -> [params(K, V)|Params] end, [], Options).
-
-sync_options(Options) ->
-    ParamList = options_to_param_list(Options),
-    string:join(ParamList, "&").
+    get(cf_url_helper:content_type_url(SpaceID, ContentTypes), [], ApiKey).
