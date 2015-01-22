@@ -3,4 +3,4 @@
 
 
 parse(JSON) ->
-    jsx:decode(JSON).
+    jsx:decode(JSON, [return_maps]).
