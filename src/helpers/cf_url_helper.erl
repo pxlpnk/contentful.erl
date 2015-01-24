@@ -16,7 +16,8 @@ content_type_url(SpaceID, ContentTypes) ->
     space_url(SpaceID) ++ "/entries?" ++ params([{"content_type",{list,ContentTypes}}]).
 
 entries_url(SpaceID, Query) ->
-    Path = params(Query).
+    Path = params(Query),
+    space_url(SpaceID) ++ "/entries?" ++ Path.
 
 delivery_api_url() -> "https://cdn.contentful.com".
 
