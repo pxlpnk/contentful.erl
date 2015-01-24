@@ -14,6 +14,10 @@ content_type(SpaceID, ApiKey, ContentTypes) ->
     {Status, JSON} = cf_http_helper:get_content_type(SpaceID, ApiKey, ContentTypes),
     {Status, cf_json_helper:parse(JSON)}.
 
+%% Query: [{"K","V"}, {"k","v"}] or [{"K",{list,["a","b","c"]}}]
+entries(SpaceID, ApiKey, Query) ->
+    {Status, JSON} = cf_http_helper:get_entries(SpaceID, ApiKey, Query).
+
 sync(SpaceID, ApiKey, Options) ->
     {Status, JSON} = cf_http_helper:get_sync(SpaceID, ApiKey, Options),
     {Status, cf_json_helper:parse(JSON)}.

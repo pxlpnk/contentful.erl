@@ -25,13 +25,48 @@ content_type_url_test() ->
        cf_url_helper:content_type_url("SpaceKey",["cat","dog"]),
        "https://cdn.contentful.com/spaces/SpaceKey/entries?content_type=cat,dog").
 
-options_test() ->
-    Options = [{"initial", "true"}, {"type","Entry"}],
+params_string_test() ->
+    Params = {"Key", "Value"},
     ?assertEqual(
-       cf_url_helper:options(Options),
-       "initial=true&type=Entry").
+       cf_url_helper:params_string(Params),
+       "Key=Value").
+
+params_string_empty_value_test() ->
+    Params = {"Key", ""},
+    ?assertEqual(
+       cf_url_helper:params_string(Params),
+       "Key").
+
+params_string_list_test() ->
+    Params = {"K",{list,["a","b","c"]}},
+    ?assertEqual(
+       cf_url_helper:params_string(Params),
+       "K=a,b,c").
 
 params_test() ->
+    Params = [{"Key", "Value"}],
     ?assertEqual(
-       cf_url_helper:params("Key", "Value"),
-       "Key=Value").
+       "Key=Value",
+       cf_url_helper:params(Params)
+      ).
+
+params_list_test() ->
+    Params = [{"K","V"}, {"k","v"}],
+    ?assertEqual(
+       "K=V&k=v",
+       cf_url_helper:params(Params)
+      ).
+
+params_array_test() ->
+    Params = [{"K",{list,["a","b","c"]}}],
+    ?assertEqual(
+       "K=a,b,c",
+       cf_url_helper:params(Params)
+      ).
+
+params_list_list_test() ->
+    Params = [{"K1","V1"}, {"K",{list,["a","b","c"]}}],
+    ?assertEqual(
+       "K1=V1&K=a,b,c",
+       cf_url_helper:params(Params)
+      ).

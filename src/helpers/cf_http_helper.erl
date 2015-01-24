@@ -37,3 +37,7 @@ get_content_types(SpaceID, ApiKey) ->
 
 get_content_type(SpaceID, ApiKey, ContentTypes) ->
     get(cf_url_helper:content_type_url(SpaceID, ContentTypes), [], ApiKey).
+
+get_entries(SpaceID, ApiKey, Query) ->
+    Url = cf_url_helper:entries_url(SpaceID, Query),
+    get(Url,[], ApiKey).
