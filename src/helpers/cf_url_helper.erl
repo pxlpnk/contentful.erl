@@ -1,5 +1,15 @@
 -module(cf_url_helper).
--compile([export_all]).
+-export([entries_url/2,
+         content_types_url/1,
+         content_type_url/2,
+         space_url/1,
+         sync_url/2,
+         params/1]).
+
+%% Export all functions for unit tests
+-ifdef(TEST).
+-compile(export_all).
+-endif.
 
 sync_url(SpaceID, SyncOptions) ->
     space_url(SpaceID) ++ "/sync?" ++ params(SyncOptions).

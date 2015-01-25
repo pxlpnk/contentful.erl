@@ -1,5 +1,8 @@
 -module(cf_json_helper).
--compile([export_all]).
+-export([parse/1]).
+
+
+
 
 
 parse(JSON) ->
