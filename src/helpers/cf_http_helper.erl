@@ -1,24 +1,18 @@
 -module(cf_http_helper).
--compile([export_all]).
+-export([get/2,
+         get/3,
+         get_sync/3,
+         get_space/2,
+         get_content_types/2,
+         get_content_type/3,
+         get_entries/3,
+         next_page/2,
+         next_sync/2]).
 
-auth_header(ApiKey) ->
-    { "Authorization", "Bearer " ++ ApiKey }.
-
-status_code_to_tuple_state(StatusCode) ->
-    case round(StatusCode / 100) of
-        2 -> ok;
-        _ -> err
-    end.
-
-parse_auth_headers(Headers, ApiKey) ->
-    [auth_header(ApiKey)| Headers].
-
-do_request(Method, Url, Headers) ->
-    do_request(Method, Url, Headers, <<>>, []).
-
-do_request(Method, URL, Headers, Payload, Options) ->
-    hackney:start(),
-    hackney:request(Method, URL, Headers, Payload, Options).
+%% Export all functions for unit tests
+-ifdef(TEST).
+-compile(export_all).
+-endif.
 
 get(Url, ApiKey) ->
     get(Url, [], ApiKey).
@@ -52,3 +46,23 @@ next_page(Page, ApiKey) ->
 next_sync(Page, ApiKey) ->
     Url = cf_url_helper:get_next_sync_url(Page),
     get(Url, ApiKey).
+
+
+auth_header(ApiKey) ->
+    { "Authorization", "Bearer " ++ ApiKey }.
+
+status_code_to_tuple_state(StatusCode) ->
+    case round(StatusCode / 100) of
+        2 -> ok;
+        _ -> err
+    end.
+
+parse_auth_headers(Headers, ApiKey) ->
+    [auth_header(ApiKey)| Headers].
+
+do_request(Method, Url, Headers) ->
+    do_request(Method, Url, Headers, <<>>, []).
+
+do_request(Method, URL, Headers, Payload, Options) ->
+    hackney:start(),
+    hackney:request(Method, URL, Headers, Payload, Options).

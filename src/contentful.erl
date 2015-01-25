@@ -1,5 +1,10 @@
 -module(contentful).
--export([space/2, content_types/2, entries/3, sync/3, next_page/2, next_sync/2]).
+-export([space/2,
+         content_types/2,
+         entries/3,
+         sync/3,
+         next_page/2,
+         next_sync/2]).
 
 space(SpaceID, ApiKey) ->
     {Status, JSON} = cf_http_helper:get_space(SpaceID, ApiKey),
