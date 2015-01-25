@@ -60,7 +60,6 @@ entries_inclusion_test() ->
     ?assertEqual(ok, Status).
 
 entries_exclusion_test() ->
-    [{"content_type","cat"}, {"fields.likes[nin]", {list, ["rainbows","lasagna"]}}],
-    Params = [{"sys.id[in]",{ list, ["finn","jake"] } }],
+    Params = [{"content_type","cat"}, {"fields.likes[nin]", {list, ["rainbows","lasagna"]}}],
     {Status, _Body} = contentful:entries(space(), token(), Params),
     ?assertEqual(ok, Status).

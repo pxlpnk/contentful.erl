@@ -1,7 +1,5 @@
 -module(cf_url_helper).
 -compile([export_all]).
-%% -export([sync_url/2, space_url/1, content_types_url/1 content_type_url/2,
-%%         delivery_api_url/0, cda_url/0, params/2, options/1]).
 
 sync_url(SpaceID, SyncOptions) ->
     space_url(SpaceID) ++ "/sync?" ++ params(SyncOptions).
@@ -41,3 +39,9 @@ params_string({K,""}) ->
     K;
 params_string({K, V}) ->
     K ++ "=" ++ V.
+
+get_next_sync_url(#{<<"nextSyncUrl">> := Url}) ->
+    Url.
+
+get_next_page_url(#{<<"nextPageUrl">> := Url}) ->
+    Url.
