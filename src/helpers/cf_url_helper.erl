@@ -1,9 +1,12 @@
 -module(cf_url_helper).
 -export([entries_url/2,
+         entry_url/3,
          content_types_url/1,
          content_type_url/2,
          space_url/1,
          sync_url/2,
+         get_next_sync_url/1,
+         get_next_page_url/1,
          params/1]).
 
 %% Export all functions for unit tests
@@ -26,6 +29,10 @@ content_type_url(SpaceID, ContentTypes) ->
 entries_url(SpaceID, Query) ->
     Path = params(Query),
     space_url(SpaceID) ++ "/entries?" ++ Path.
+
+entry_url(SpaceID, EntryID, Query) ->
+    Path = params(Query),
+    space_url(SpaceID) ++ "/entries/" ++ EntryID ++ "?" ++ Path.
 
 delivery_api_url() -> "https://cdn.contentful.com".
 

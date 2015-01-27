@@ -6,6 +6,7 @@
          get_content_types/2,
          get_content_type/3,
          get_entries/3,
+         get_entry/4,
          next_page/2,
          next_sync/2]).
 
@@ -37,6 +38,10 @@ get_content_type(SpaceID, ApiKey, ContentTypes) ->
 
 get_entries(SpaceID, ApiKey, Query) ->
     Url = cf_url_helper:entries_url(SpaceID, Query),
+    get(Url, ApiKey).
+
+get_entry(SpaceID, EntryID, ApiKey, Query) ->
+    Url = cf_url_helper:entry_url(SpaceID, EntryID, Query),
     get(Url, ApiKey).
 
 next_page(Page, ApiKey) ->

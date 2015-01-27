@@ -31,3 +31,11 @@ entries_url_test() ->
     ?assertEqual(
        "https://cdn.contentful.com/spaces/cfexampleapi/entries?content_type=dog",
        cf_url_helper:entries_url(SpaceID, Query)).
+
+entry_url_test() ->
+    Query = [{"content_type","dog"}],
+    SpaceID = "cfexampleapi",
+    EntryID = "nyancat",
+    ?assertEqual(
+       "https://cdn.contentful.com/spaces/cfexampleapi/entries/nyancat?content_type=dog",
+       cf_url_helper:entry_url(SpaceID, EntryID, Query)).
