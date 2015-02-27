@@ -5,6 +5,7 @@
          content_type_url/2,
          space_url/1,
          sync_url/2,
+         asset_url/2,
          get_next_sync_url/1,
          get_next_page_url/1,
          params/1]).
@@ -33,6 +34,9 @@ entries_url(SpaceID, Query) ->
 entry_url(SpaceID, EntryID, Query) ->
     Path = params(Query),
     space_url(SpaceID) ++ "/entries/" ++ EntryID ++ "?" ++ Path.
+
+asset_url(SpaceID, AssetID) ->
+    space_url(SpaceID) ++ "/assets/" ++ AssetID.
 
 delivery_api_url() -> "https://cdn.contentful.com".
 

@@ -5,6 +5,7 @@
          entries/3,
          entry/4,
          sync/3,
+         asset/3,
          next_page/2,
          next_sync/2]).
 
@@ -39,4 +40,8 @@ next_page(Page, ApiKey) ->
 
 next_sync(Page, ApiKey) ->
     {Status, JSON} = cf_http_helper:next_sync(Page, ApiKey),
+    {Status, cf_json_helper:parse(JSON)}.
+
+asset(SpaceID, ApiKey, AssetID) ->
+    {Status, JSON} = cf_http_helper:get_asset(SpaceID, ApiKey, AssetID),
     {Status, cf_json_helper:parse(JSON)}.

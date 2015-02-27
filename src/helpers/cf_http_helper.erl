@@ -7,6 +7,7 @@
          get_content_type/3,
          get_entries/3,
          get_entry/4,
+         get_asset/3,
          next_page/2,
          next_sync/2]).
 
@@ -52,6 +53,9 @@ next_sync(Page, ApiKey) ->
     Url = cf_url_helper:get_next_sync_url(Page),
     get(Url, ApiKey).
 
+get_asset(SpaceID, ApiKey, AssetID) ->
+    Url = cf_url_helper:asset_url(SpaceID, AssetID),
+    get(Url, ApiKey).
 
 auth_header(ApiKey) ->
     { "Authorization", "Bearer " ++ ApiKey }.

@@ -25,6 +25,14 @@ content_type_url_test() ->
        cf_url_helper:content_type_url("SpaceKey",["cat","dog"]),
        "https://cdn.contentful.com/spaces/SpaceKey/entries?content_type=cat,dog").
 
+
+asset_url_test() ->
+    ?assertEqual(
+       cf_url_helper:asset_url("SpaceKey","nyancat"),
+       "https://cdn.contentful.com/spaces/SpaceKey/assets/nyancat"
+      ).
+
+
 params_string_test() ->
     Params = {"Key", "Value"},
     ?assertEqual(
